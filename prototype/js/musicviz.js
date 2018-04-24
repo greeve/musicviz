@@ -65,7 +65,8 @@ function bubbleChart() {
             .attr('r', 0)
             .attr('fill', function (d) { return fillColor(d.name); })
             .attr('stroke', function (d) { return d3.rgb(fillColor(d.name)).darker(); })
-            .attr('stroke-width', 2);
+            .attr('stroke-width', 2)
+            .on('click', bubbleClick);
         
         bubbles = bubbles.merge(bubblesE);
 
@@ -87,6 +88,20 @@ function bubbleChart() {
     }
 
     return chart;
+}
+
+function bubbleClick(d) {
+    console.log(d);
+    window.location.href = 'genre.html?' + 'genre=' + slugify(d.name);
+}
+
+function slugify(text) {
+    return text.toString().toLowerCase()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start of text
+        .replace(/-+$/, '');            // Trim - from end of text
 }
 
 // Start Here
