@@ -59,13 +59,13 @@ function bubbleChart() {
 
         node = svg.selectAll('circle')
             .data(nodes, function (d) { return d.id; })
-            .enter().append('g');
+            .enter().append('g')
+            .on('click', bubbleClick);
 
         var circle = node.append('circle')
             .attr('class', 'bubble')
             .attr('r', 0)
-            .attr('fill', function (d) { return fillColor(d.name); })
-            .on('click', bubbleClick);
+            .attr('fill', function (d) { return fillColor(d.name); });
 
         node.append('text')
             .attr('dx', function (d) { return -10; })
