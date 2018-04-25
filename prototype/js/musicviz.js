@@ -64,8 +64,6 @@ function bubbleChart() {
             .classed('bubble', true)
             .attr('r', 0)
             .attr('fill', function (d) { return fillColor(d.name); })
-            .attr('stroke', function (d) { return d3.rgb(fillColor(d.name)).darker(); })
-            .attr('stroke-width', 2)
             .on('click', bubbleClick);
         
         bubbles = bubbles.merge(bubblesE);
