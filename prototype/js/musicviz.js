@@ -7,7 +7,7 @@ function bubbleChart() {
     var forceStrength = 0.03;
 
     var svg = null;
-    var bubbles = null;
+    var node = null;
     var nodes = [];
 
     function charge(d) {
@@ -57,18 +57,22 @@ function bubbleChart() {
             .attr('width', width)
             .attr('height', height);
 
-        bubbles = svg.selectAll('.bubble')
-            .data(nodes, function (d) { return d.id; });
+        node = svg.selectAll('circle')
+            .data(nodes, function (d) { return d.id; })
+            .enter().append('g');
 
-        var bubblesE = bubbles.enter().append('circle')
-            .classed('bubble', true)
+        var circle = node.append('circle')
+            .attr('class', 'bubble')
             .attr('r', 0)
             .attr('fill', function (d) { return fillColor(d.name); })
             .on('click', bubbleClick);
-        
-        bubbles = bubbles.merge(bubblesE);
 
-        bubbles.transition()
+        node.append('text')
+            .attr('dx', function (d) { return -10; })
+            .attr('dy', '0.5em')
+            .text(function (d) { return d.name; });
+
+        circle.transition()
             .duration(2000)
             .attr('r', function (d) { return d.radius; });
         
@@ -80,9 +84,10 @@ function bubbleChart() {
     }
 
     function ticked() {
-        bubbles
-            .attr('cx', function (d) { return d.x; })
-            .attr('cy', function (d) { return d.y; });
+        node.attr('transform', function (d) {
+            var k = 'translate(' + d.x + ',' + d.y + ')';
+            return k;
+        })
     }
 
     return chart;
