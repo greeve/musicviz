@@ -67,10 +67,17 @@ function bubbleChart() {
             .attr('r', 0)
             .attr('fill', function (d) { return fillColor(d.name); });
 
-        node.append('text')
+        var circleText = node.append('text')
             .attr('dx', function (d) { return -10; })
             .attr('dy', '0.5em')
+            .style('font-size', '1.5em')
+            .attr('fill-opacity', '0')
+            .attr('fill', function (d) { return d3.rgb(fillColor(d.name)).darker(3); })
             .text(function (d) { return d.name; });
+
+        circleText.transition()
+            .style('fill-opacity', '1')
+            .duration(3000);
 
         circle.transition()
             .duration(2000)
