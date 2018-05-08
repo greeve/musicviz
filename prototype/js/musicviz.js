@@ -77,12 +77,12 @@ function bubbleChart() {
 
         circleText.transition()
             .style('fill-opacity', '1')
-            .duration(3000);
+            .duration(2000);
 
         circle.transition()
             .duration(2000)
             .attr('r', function (d) { return d.radius; });
-        
+
         simulation.nodes(nodes);
 
         simulation.force('x', d3.forceX().strength(forceStrength).x(center.x));
