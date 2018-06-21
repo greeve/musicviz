@@ -15,18 +15,121 @@ import json
 import sys
 
 from collections import defaultdict
+from slugify import slugify
+
+from constants import DISCOGS_GENRES
+
+
+class Album:
+
+    def __init__(self, title, released, artists):
+        self.title = title
+        self.released = released
+        self.artists = artists
+
+    def __repr__(self):
+        return 'Album({}, {}, {})'.format(
+            self.title,
+            self.released,
+            self.artists,
+        )
+
+
+class Decade:
+
+    def __init__(self, name='', count=0, albums=None):
+        self.name = name
+        self.count = count
+        self.albums = albums if albums else []
+
+    def __repr__(self):
+        return 'Decade(name={}, count={}, albums={})'.format(
+            self.name,
+            self.count,
+            self.albums,
+        )
+
+
+class Style:
+
+    def __init__(self, name='', count=0, decades=None):
+        self.name = name
+        self.slug = slugify(name)
+        self.count = count
+        self.decades = decades if decades else defaultdict(Decade)
+
+    def __repr__(self):
+        return 'Style(name={}, count={}, decades={})'.format(
+            self.name,
+            self.count,
+            self.decades,
+        )
+
+
+class Genre:
+
+    def __init__(self, name='', count=0, styles=None):
+        self.name = name
+        self.slug = slugify(name)
+        self.count = count
+        self.styles = styles if styles else defaultdict(Style)
+
+    def __repr__(self):
+        return 'Genre(name={}, count={}, styles={})'.format(
+            self.name,
+            self.count,
+            self.styles,
+        )
+
+
+class CustomEncoder(json.JSONEncoder):
+    def default(self, obj):
+        return obj.__dict__
+
+
+class SetEncoder(json.JSONEncoder):
+
+    def default(self, obj):
+        if isinstance(obj, set):
+            return list(obj)
+        return json.JSONEncoder.default(self, obj)
+
+
+def get_unique_styles(genre, styles):
+    s = defaultdict(Style)
+
+    return s
 
 
 def get_unique_genres(filepath):
-    g = defaultdict(lambda: defaultdict(int))
+    g = defaultdict(Genre)
 
     with open(filepath) as fin:
         reader = csv.DictReader(fin, delimiter='\t')
         for row in reader:
             genres = row['genres']
             genres = genres.strip().split(';')
+            styles = row['styles']
+            styles = [s for s in styles.strip().split(';') if s]
+            decade = row['decade']
+            title = row['catTitle']
+            released = row['released']
+            artists = row['artists']
             for genre in genres:
-                g[genre]['count'] += 1
+                genre_slug = slugify(genre)
+                genre_styles = DISCOGS_GENRES[genre]
+                g[genre_slug].name = genre
+                g[genre_slug].slug = genre_slug
+                g[genre_slug].count += 1
+                for style in styles:
+                    if style in genre_styles:
+                        style_slug = slugify(style)
+                        g[genre_slug].styles[style_slug].name = style
+                        g[genre_slug].styles[style_slug].slug = style_slug
+                        g[genre_slug].styles[style_slug].count += 1
+                        g[genre_slug].styles[style_slug].decades[decade].name = decade  # noqa
+                        g[genre_slug].styles[style_slug].decades[decade].count += 1  # noqa
+                        g[genre_slug].styles[style_slug].decades[decade].albums.append(Album(title, released, artists))  # noqa
 
     return g
 
@@ -65,14 +168,20 @@ def main():
         return
     args = parser.parse_args()
     if args.action == 'genres' and args.filepath:
+
         genres = get_unique_genres(args.filepath)
-        print(json.dumps(genres))
-        print()
-        print([{'name': k, 'count': v['count']} for k, v in genres.items()])
-        print()
+        with open('musicviz.json', 'w') as fout:
+            fout.write(json.dumps(genres, cls=CustomEncoder))
+
+        genres_output = [{'slug': k, 'name': v.name, 'count': v.count} for k, v in genres.items()]  # noqa
+        with open('genres.json', 'w') as fout:
+            fout.write(json.dumps(genres_output))
+
         lines = []
-        lines.append('\t'.join(('name', 'count')))
-        lines.extend(['\t'.join((k, str(v['count']))) for k, v in genres.items()])
+        lines.append('\t'.join(('slug', 'name', 'count')))
+        lines.extend(
+            ['\t'.join((k, v.name, str(v.count))) for k, v in genres.items()],
+        )
         print('\n'.join(lines))
     if args.action == 'decades' and args.filepath:
         decades = get_decades(args.filepath)

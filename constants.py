@@ -13,13 +13,13 @@ DISCOGS_GENRES = {
         'Piedmont Blues',
         'Texas Blues',
     ],
-    'Brass And Military': [
+    'Brass & Military': [
         'Brass Band',
         'Marches',
         'Military',
         'Pipe & Drum',
     ],
-    'Childrens': [
+    'Children\'s': [
         'Educational',
         'Nursery Rhymes',
         'Story',
@@ -116,7 +116,7 @@ DISCOGS_GENRES = {
         'Speed Garage',
         'UK Garage',
     ],
-    'Folk, World, And Country': [
+    'Folk, World, & Country': [
         'Country',
         'Bluegrass',
         'Cajun',
@@ -240,7 +240,7 @@ DISCOGS_GENRES = {
         'Reggaeton',
         'Tango',
     ],
-    'Non-music': [
+    'Non-Music': [
         'Audiobook',
         'Comedy',
         'Dialogue',
@@ -358,7 +358,7 @@ DISCOGS_GENRES = {
         'Rocksteady',
         'Ska',
     ],
-    'Stage And Screen': [
+    'Stage & Screen': [
         'Musical',
         'Score',
         'Soundtrack',
