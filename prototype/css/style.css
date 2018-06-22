@@ -141,3 +141,16 @@ a, a:visited, a:active {
 .breadcrumbs li a:hover { background: hsla(34,85%,25%,1); }
 .breadcrumbs li a:hover:after { border-left-color: hsla(34,85%,25%,1) !important; }
 
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 0.25rem;
+    text-align: left;
+}
+
+tbody tr:hover {
+    background: yellow;
+}
