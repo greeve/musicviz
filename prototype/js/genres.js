@@ -1,6 +1,6 @@
 function bubbleChart() {
     var width = 940;
-    var height = 700;
+    var height = 800;
 
     var center = { x: width / 2, y: height / 2 };
 

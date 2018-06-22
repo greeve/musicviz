@@ -1,6 +1,6 @@
 function bubbleChart() {
     var width = 940;
-    var height = 700;
+    var height = 800;
 
     var center = { x: width / 2, y: height / 2 };
 
@@ -27,6 +27,7 @@ function bubbleChart() {
 
     function createNodes(data) {
         console.log(data);
+
         var maxAmount = d3.max(data, function (d) { return +d.count; });
 
         var radiusScale = d3.scalePow()
@@ -120,6 +121,10 @@ function display(error, data) {
     if (error) {
         console.log(error);
     }
+
+    var breadcrumbs = d3.select('header').append('ul').attr('class', 'breadcrumbs')
+    breadcrumbs.append('li').html('<a href="/">Genres</a>');
+    breadcrumbs.append('li').html('<a href="' + window.location.href + '">' + data[genreParam].name + '</a>');
 
     singleGenreChart('#viz', Object.values(data[genreParam].styles));
 }

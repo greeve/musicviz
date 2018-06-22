@@ -1,6 +1,6 @@
 function bubbleChart() {
     var width = 940;
-    var height = 700;
+    var height = 800;
 
     var center = { x: width / 2, y: height / 2 };
 
@@ -121,6 +121,13 @@ function display(error, data) {
     if (error) {
         console.log(error);
     }
+
+    var genreURL = 'genre.html?' + 'genre=' + genreParam;
+
+    var breadcrumbs = d3.select('header').append('ul').attr('class', 'breadcrumbs')
+    breadcrumbs.append('li').html('<a href="/">Genres</a>');
+    breadcrumbs.append('li').html('<a href="' + genreURL + '">' + data[genreParam].name + '</a>');
+    breadcrumbs.append('li').html('<a href="' + window.location.href + '">' + data[genreParam].styles[styleParam].name + '</a>');
 
     singleGenreChart('#viz', Object.values(data[genreParam].styles[styleParam].decades));
 }
