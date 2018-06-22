@@ -1,6 +1,22 @@
-function bubbleChart() {
+function tableChart() {
     var chart = function chart(selector, data) {
         console.log(data);
+
+        var table = d3.select(selector).append('table');
+        var thead = table.append('thead');
+        var theadRow = thead.append('tr');
+        theadRow.append('th').text('Title');
+        theadRow.append('th').text('Year Released');
+        theadRow.append('th').text('Artists');
+        var tbody = table.append('tbody');
+
+        for (var i=0; i < data.length; i++) {
+            var tbodyRow = tbody.append('tr');
+            tbodyRow.append('td').text(data[i].title);
+            tbodyRow.append('td').text(data[i].released);
+            tbodyRow.append('td').text(data[i].artists);
+        }
+
     }
 
     return chart;
@@ -17,7 +33,7 @@ var decadeParam = getURLParameter('decade');
 
 // Start Here
 
-var singleGenreChart = bubbleChart();
+var albumChart = tableChart();
 
 function display(error, data) {
     if (error) {
@@ -33,7 +49,7 @@ function display(error, data) {
     breadcrumbs.append('li').html('<a href="' + styleURL + '">' + data[genreParam].styles[styleParam].name + '</a>');
     breadcrumbs.append('li').html('<a href="' + window.location.href + '">' + decadeParam + '</a>');
 
-    singleGenreChart('#viz', Object.values(data[genreParam].styles[styleParam].decades[decadeParam].albums));
+    albumChart('#viz', Object.values(data[genreParam].styles[styleParam].decades[decadeParam].albums));
 }
 
 // Load Data
