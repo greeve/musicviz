@@ -1,6 +1,7 @@
 """
 A python module to format the Discogs data for display in a web browser.
 
+catId
 catTitle
 released
 artists
@@ -22,13 +23,15 @@ from constants import DISCOGS_GENRES
 
 class Album:
 
-    def __init__(self, title, released, artists):
+    def __init__(self, catalog_id, title, released, artists):
+        self.catalog_id = catalog_id
         self.title = title
         self.released = released
         self.artists = artists
 
     def __repr__(self):
-        return 'Album({}, {}, {})'.format(
+        return 'Album({}, {}, {}, {})'.format(
+            self.catalog_id,
             self.title,
             self.released,
             self.artists,
@@ -112,6 +115,7 @@ def get_unique_genres(filepath):
             styles = row['styles']
             styles = [s for s in styles.strip().split(';') if s]
             decade = row['decade']
+            catalog_id = row['catId']
             title = row['catTitle']
             released = row['released']
             artists = row['artists']
@@ -129,7 +133,7 @@ def get_unique_genres(filepath):
                         g[genre_slug].styles[style_slug].count += 1
                         g[genre_slug].styles[style_slug].decades[decade].name = decade  # noqa
                         g[genre_slug].styles[style_slug].decades[decade].count += 1  # noqa
-                        g[genre_slug].styles[style_slug].decades[decade].albums.append(Album(title, released, artists))  # noqa
+                        g[genre_slug].styles[style_slug].decades[decade].albums.append(Album(catalog_id, title, released, artists))  # noqa
 
     return g
 

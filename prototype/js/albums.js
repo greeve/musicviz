@@ -12,7 +12,7 @@ function tableChart() {
 
         for (var i=0; i < data.length; i++) {
             var tbodyRow = tbody.append('tr');
-            tbodyRow.append('td').text(data[i].title);
+            tbodyRow.append('td').html('<a href="https://search.lib.byu.edu/byu/record/lee.' + data[i].catalog_id + '">' + data[i].title + '</a>');
             tbodyRow.append('td').text(data[i].released);
             tbodyRow.append('td').text(data[i].artists);
         }
