@@ -170,6 +170,7 @@ def main():
     if len(sys.argv) == 1:
         parser.print_help()
         return
+
     args = parser.parse_args()
     if args.action == 'genres' and args.filepath:
 

@@ -23,7 +23,7 @@ function bubbleChart() {
 
     simulation.stop();
 
-    var fillColor = d3.scaleOrdinal(d3.schemeCategory20);
+    var fillColor = d3.scaleOrdinal(d3.schemeCategory10);
 
     function createNodes(data) {
         console.log(data);
