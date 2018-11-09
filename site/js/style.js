@@ -39,8 +39,8 @@ function bubbleChart() {
                 name: d.name,
                 radius: radiusScale(+d.count),
                 value: +d.count,
-                x: Math.random() * 900,
-                y: Math.random() * 800
+                x: Math.random() * constants.CHART_WIDTH,
+                y: Math.random() * constants.CHART_HEIGHT
             };
         });
 
