@@ -1,6 +1,6 @@
 function bubbleChart() {
-    var width = 940;
-    var height = 800;
+    var width = constants.CHART_WIDTH;
+    var height = constants.CHART_HEIGHT;
 
     var center = { x: width / 2, y: height / 2 };
 
@@ -11,7 +11,7 @@ function bubbleChart() {
     var nodes = [];
 
     function charge(d) {
-        return -Math.pow(d.radius, 2.2) * forceStrength;
+        return -Math.pow(d.radius, constants.CHARGE) * forceStrength;
     }
 
     var simulation = d3.forceSimulation()
@@ -26,12 +26,11 @@ function bubbleChart() {
     var fillColor = d3.scaleOrdinal(d3.schemeCategory10);
 
     function createNodes(data) {
-        console.log(data);
         var maxAmount = d3.max(data, function (d) { return +d.count; });
 
         var radiusScale = d3.scalePow()
             .exponent(0.5)
-            .range([20, 85])
+            .range([constants.RADIUS_SCALE_MIN, constants.RADIUS_SCALE_MAX])
             .domain([0, maxAmount]);
 
         var myNodes = data.map(function (d, index) {

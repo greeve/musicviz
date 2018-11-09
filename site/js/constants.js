@@ -1,0 +1,7 @@
+var constants = {
+    CHART_WIDTH: 1366,
+    CHART_HEIGHT: 1024,
+    CHARGE: 2.1,
+    RADIUS_SCALE_MIN: 40,
+    RADIUS_SCALE_MAX: 150
+}
