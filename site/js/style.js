@@ -68,11 +68,11 @@ function bubbleChart() {
             .attr('fill', function (d) { return fillColor(d.name); });
 
         var circleText = node.append('text')
-            .attr('dx', function (d) { return -10; })
-            .attr('dy', '0.5em')
-            .style('font-size', '1.5em')
+            .attr('dy', '0.35em')
+            .style('font-size', '1.75em')
             .attr('fill-opacity', '0')
             .attr('fill', function (d) { return d3.rgb(fillColor(d.name)).darker(3); })
+            .attr('text-anchor', 'middle')
             .text(function (d) { return d.name; });
 
         circleText.transition()
