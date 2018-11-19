@@ -117,8 +117,8 @@ var singleGenreChart = bubbleChart();
 
 var data = musicviz;
 
-var breadcrumbs = d3.select('header').append('ul').attr('class', 'breadcrumbs')
-breadcrumbs.append('li').html('<a href="index.html">Genres</a>');
-breadcrumbs.append('li').html('<a href="' + window.location.href + '">' + data[genreParam].name + '</a>');
+// var breadcrumbs = d3.select('header').append('ul').attr('class', 'breadcrumbs')
+// breadcrumbs.append('li').html('<a href="index.html">Genres</a>');
+// breadcrumbs.append('li').html('<a href="' + window.location.href + '">' + data[genreParam].name + '</a>');
 
 singleGenreChart('#viz', Object.values(data[genreParam].styles));
