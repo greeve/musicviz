@@ -120,9 +120,9 @@ var data = musicviz;
 
 var genreURL = 'genre.html?' + 'genre=' + genreParam;
 
-// var breadcrumbs = d3.select('header').append('ul').attr('class', 'breadcrumbs')
-// breadcrumbs.append('li').html('<a href="index.html">Genres</a>');
-// breadcrumbs.append('li').html('<a href="' + genreURL + '">' + data[genreParam].name + '</a>');
-// breadcrumbs.append('li').html('<a href="' + window.location.href + '">' + data[genreParam].styles[styleParam].name + '</a>');
+var nav = d3.select('nav');
+nav.append('a').attr('href', 'index.html').append('span').html('Genres');
+nav.append('a').attr('href', genreURL).append('span').html(data[genreParam].name);
+nav.append('a').attr('href', window.location.href).append('span').html(data[genreParam].styles[styleParam].name);
 
 singleGenreChart('#viz', Object.values(data[genreParam].styles[styleParam].decades));
