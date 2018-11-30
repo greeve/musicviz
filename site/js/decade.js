@@ -5,13 +5,16 @@ function tableChart() {
         var table = d3.select(selector).append('table');
         var thead = table.append('thead');
         var theadRow = thead.append('tr');
-        theadRow.append('th').text('Title');
-        theadRow.append('th').text('Year Released');
-        theadRow.append('th').text('Artists');
+        theadRow.append('th').text('audio');
+        theadRow.append('th').text('title');
+        theadRow.append('th').text('year released');
+        theadRow.append('th').text('artists');
         var tbody = table.append('tbody');
 
         for (var i=0; i < data.length; i++) {
             var tbodyRow = tbody.append('tr');
+            //tbodyRow.append('td').html('<a href="audio/nbc_chime_diy.mp3">🎶</a>');
+            tbodyRow.append('td').html('<audio controls preload="none" src="audio/nbc_chime_diy.mp3" type="audio/mp3"></audio>');
             tbodyRow.append('td').html('<a href="https://search.lib.byu.edu/byu/record/lee.' + data[i].catalog_id + '">' + data[i].title + '</a>');
             tbodyRow.append('td').text(data[i].released);
             tbodyRow.append('td').text(data[i].artists);

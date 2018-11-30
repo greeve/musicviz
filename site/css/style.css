@@ -61,11 +61,22 @@ nav > a > span{
 table {
     border-collapse: collapse;
     width: 100%;
+    font-size: 150%;
+    margin-top: 1rem;
+}
+
+th {
+    color: #ccc;
+    font-variant: small-caps;
 }
 
 th, td {
-    padding: 0.25rem;
+    padding: 0.5rem 1rem;
     text-align: left;
+}
+
+td > a {
+    text-decoration: none;
 }
 
 tbody tr:hover {
