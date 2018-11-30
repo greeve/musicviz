@@ -4,6 +4,7 @@ html, body {
     margin: 0;
     padding: 0;
     width: 1024px;
+    color: #333;
 }
 
 nav > a, a:visited, a:active {
@@ -77,8 +78,19 @@ th, td {
 
 td > a {
     text-decoration: none;
+    color: #333;
 }
 
-tbody tr:hover {
-    background: yellow;
+td > a:hover {
+    color: #333;
 }
+
+audio {
+    width: 50%;
+}
+
+[data-audio]{ cursor:pointer; }
+[data-audio].on{ color: #0ac; }
+/* https://fortawesome.github.io/Font-Awesome/cheatsheet/ */
+[data-audio]:before{ content:"\f144"; }
+[data-audio].on:before{ content:"\f28b"; }
