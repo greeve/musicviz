@@ -5,7 +5,7 @@ function tableChart() {
         var table = d3.select(selector).append('table');
         var thead = table.append('thead');
         var theadRow = thead.append('tr');
-        theadRow.append('th').text('title');
+        theadRow.append('th').text('album');
         theadRow.append('th').text('year released');
         theadRow.append('th').text('artists');
         var tbody = table.append('tbody');
