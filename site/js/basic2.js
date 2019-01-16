@@ -24,7 +24,7 @@ function capitalize (str) {
     return str[0].toUpperCase() + str.substr(1);
 }
 
-var width = 1024;
+var width = window.innerWidth;
 var height = 768;
 var color = d3.scale.category20();
 var sizeScale = d3.scale.quantile().domain([20, 80]).range(d3.range(20, 80, 4));
@@ -39,7 +39,8 @@ var data = d3.range(0, 25).map(function (i) {
         y: random(height / 2 - 100, height / 2 + 100),
         color: color(i),
         shape: randomPick(['circle']),
-        size: random(20, 80)
+        title: randomPick(['Jazz', 'Non-Music', 'Folk, World, & Country', 'Funk / Soul', 'Brass & Military']),
+        size: random(20, 100)
     };
 });
 
@@ -56,15 +57,30 @@ var shapes = svg.selectAll('.shape').data(data)
 
 var circles = shapes.append('circle')
     .attr('r', function (d) { return d.size / 2; })
-    .attr('fill', function (d) { return d.color; });
+    .attr('fill', function (d) { return d.color; })
+    .on('click', bubbleClick);
+
+var circleText = shapes.append('text')
+    .attr('dy', function (d) { return (d.size / 2) * -1 - 10})
+    .style('font-size', '1.5em')
+    .attr('fill-opacity', '0')
+    .attr('fill', function (d) { return d3.rgb(d.color).darker(3); })
+    .attr('text-anchor', 'middle')
+    .text(function (d) { 
+        return d.title; 
+    });
+
+circleText.transition()
+    .style('fill-opacity', '1')
+    .duration(2000);
 
 var grid = d3.layout.grid()
     .width(width)
     .height(height)
-    .colWidth(100)
-    .rowHeight(100)
+    .colWidth(200)
+    .rowHeight(150)
     .marginTop(75)
-    .marginLeft(50)
+    .marginLeft(100)
     .sectionPadding(100)
     .data(data);
 
@@ -74,6 +90,11 @@ function transition () {
         .duration(750)
         .delay(function (d) { return delayScale(d.groupIndex * 150 + d.index * 1); })
         .attr('transform', function (d) { return 'translate(' + d.x + ',' + d.y + ')'; });
+}
+
+function bubbleClick(d) {
+    console.log(d);
+    // window.location.href = 'genre.html?' + 'genre=' + d.slug;
 }
 
 grid.groupBy('shape');

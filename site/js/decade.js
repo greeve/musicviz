@@ -2,21 +2,14 @@ function tableChart() {
     var chart = function chart(selector, data) {
         console.log(data);
 
-        var table = d3.select(selector).append('table');
-        var thead = table.append('thead');
-        var theadRow = thead.append('tr');
-        theadRow.append('th').text('album');
-        theadRow.append('th').text('year released');
-        theadRow.append('th').text('artists');
-        var tbody = table.append('tbody');
+        var table = d3.select(selector).append('div').attr('class', 'table');
 
         for (var i=0; i < data.length; i++) {
-            var tbodyRow = tbody.append('tr');
-            tbodyRow.append('td').html('<a class="fa" data-audio="audio/nbc_chime_diy.mp3"> ' + data[i].title + '</a>');
-            tbodyRow.append('td').text(data[i].released);
-            tbodyRow.append('td').text(data[i].artists);
+            var tbodyRow = table.append('a').attr('class', 'table-row fa').attr('data-audio', 'audio/nbc_chime_diy.mp3');
+            tbodyRow.append('div').attr('class', 'table-cell').text(data[i].title);
+            tbodyRow.append('div').attr('class', 'table-cell').text(data[i].released);
+            tbodyRow.append('div').attr('class', 'table-cell').text(data[i].artists);
         }
-
     }
 
     return chart;
