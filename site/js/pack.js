@@ -143,18 +143,18 @@ var styleURL =  genreURL + "?genre=" + genreParam;
 var decadeURL = styleURL + "&style=" + styleParam;
 
 var nav = d3.select("nav");
-nav.append("a").attr("href", genreURL).append("span").html("Genres");
+nav.append("a").attr("class", "nav-genre").attr("href", genreURL).append("span").html("Genres");
 
 if (genreParam) {
-    nav.append("a").attr("href", styleURL).append("span").html(musicviz[genreParam].name);
+    nav.append("a").attr("class", "nav-style").attr("href", styleURL).append("span").html(musicviz[genreParam].name);
 }
 
 if (genreParam && styleParam) {
-    nav.append("a").attr("href", decadeURL).append("span").html(musicviz[genreParam].styles[styleParam].name);
+    nav.append("a").attr("class", "nav-decade").attr("href", decadeURL).append("span").html(musicviz[genreParam].styles[styleParam].name);
 }
 
 if (decadeParam) {
-    nav.append("a").attr("href", window.location.href).append("span").html(decadeParam);
+    nav.append("a").attr("class", "nav-album").attr("href", window.location.href).append("span").html(decadeParam);
 }
 
 if (decadeParam === null && styleParam === null && genreParam === null) {
