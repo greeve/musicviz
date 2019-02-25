@@ -120,7 +120,6 @@ function createTableChart(data) {
         }
 
         for(var i=0;i<tot;i++) BTN[i].addEventListener("click", playPause);
-
     }());
 
 }
@@ -139,6 +138,25 @@ var decadeParam = getURLParameter("decade");
 var level;
 var data;
 
+var genreURL = "pack.html";
+var styleURL =  genreURL + "?genre=" + genreParam;
+var decadeURL = styleURL + "&style=" + styleParam;
+
+var nav = d3.select("nav");
+nav.append("a").attr("href", genreURL).append("span").html("Genres");
+
+if (genreParam) {
+    nav.append("a").attr("href", styleURL).append("span").html(musicviz[genreParam].name);
+}
+
+if (genreParam && styleParam) {
+    nav.append("a").attr("href", decadeURL).append("span").html(musicviz[genreParam].styles[styleParam].name);
+}
+
+if (decadeParam) {
+    nav.append("a").attr("href", window.location.href).append("span").html(decadeParam);
+}
+
 if (decadeParam === null && styleParam === null && genreParam === null) {
     level = "genre";
     data = reformatForPack(musicviz);
@@ -153,25 +171,8 @@ if (decadeParam === null && styleParam === null && genreParam === null) {
     data = reformatForTable(musicviz, genreParam, styleParam, decadeParam);
 }
 
-console.log("decadeParam: " + decadeParam);
-console.log("styleParam: " + styleParam);
-console.log("genreParam: " + genreParam);
-
-console.log(window.location.href);
-console.log(level);
-
 if (level === "genre" || level === "style" || level === "decade") {
     createBubbleChart(bubbleClick, data);
 } else if (level === "album") {
    createTableChart(data);
 }
-
-
-// var genreURL = "genre.html?" + "genre=" + genreParam;
-// var styleURL = "style.html?" + "genre=" + genreParam + "&" + "style=" + styleParam;
-// 
-// var nav = d3.select("nav");
-// nav.append("a").attr("href", "pack.html").append("span").html("Genres");
-// nav.append("a").attr("href", genreURL).append("span").html(data[genreParam].name);
-// nav.append("a").attr("href", styleURL).append("span").html(data[genreParam].styles[styleParam].name);
-// nav.append("a").attr("href", window.location.href).append("span").html(decadeParam);
