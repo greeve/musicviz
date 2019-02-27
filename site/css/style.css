@@ -114,13 +114,25 @@ audio {
     width: 50%;
 }
 
-[data-audio]{ cursor:pointer; }
-[data-audio].on{ color: #0ac; }
+.no-audio:before {
+    content:"";
+    margin: 0 1em;
+}
+
+[data-audio] { 
+    cursor:pointer; 
+}
+
+[data-audio].on { 
+    color: #0ac; 
+}
+
 /* https://fortawesome.github.io/Font-Awesome/cheatsheet/ */
 [data-audio]:before { 
     content:"\f144"; 
     margin: 0 1em;
 }
+
 [data-audio].on:before { 
     content:"\f28b"; 
     margin: 0 1em;

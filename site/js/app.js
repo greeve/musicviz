@@ -92,7 +92,13 @@ function createTableChart(data) {
     var table = d3.select("#viz").append("div").attr("class", "table");
 
     for (var i=0; i < data.length; i++) {
-        var tbodyRow = table.append("a").attr("class", "table-row fa").attr("data-audio", "audio/nbc_chime_diy.mp3");
+        if (data[i].audio_filepath) {
+            var tbodyRow = table.append("a");
+            tbodyRow.attr("class", "table-row fa").attr("data-audio", "audio/" + data[i].audio_filepath);
+        } else {
+            var tbodyRow = table.append("span");
+            tbodyRow.attr("class", "table-row fa no-audio");
+        }
         tbodyRow.append("div").attr("class", "table-cell").text(data[i].title);
         tbodyRow.append("div").attr("class", "table-cell").text(data[i].released);
         tbodyRow.append("div").attr("class", "table-cell").text(data[i].artists);
