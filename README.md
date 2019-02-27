@@ -4,12 +4,12 @@ Visualize music data gathered from L. Tom Perry Special Collections and Discogs.
 
 ## Notes
 
-### Page order
+### Hierarchy
 
-- index.html | app.js
-- genre.html | genre.js | musicviz.js
-- style.html | style.js | musicviz.js
-- decade.html | decade.js | musicviz.js
+- first level shows genres
+- second level shows styles for a given *genre*
+- third level shows decades for a given *genre* and *style*
+- fourth level shows albums for a given *genre*, *style*, and *decade*
 
 ### Genre-color matchings
 

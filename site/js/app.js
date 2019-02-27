@@ -1,4 +1,4 @@
-function createBubbleChart(onBubbleClick, data) {
+function createBubbleChart(onBubbleClick, data, level) {
     console.log(data);
     var bleed = 50,
         width = 1024,
@@ -23,7 +23,8 @@ function createBubbleChart(onBubbleClick, data) {
         .on("click", onBubbleClick);
 
     node.append("circle")
-      .attr("r", function(d) { return d.r; });
+      .attr("r", function(d) { return d.r; })
+      .attr("class", level);
 
     node.append("text")
       .text(function(d) { return d.name; })
@@ -149,18 +150,18 @@ var styleURL =  genreURL + "?genre=" + genreParam;
 var decadeURL = styleURL + "&style=" + styleParam;
 
 var nav = d3.select("nav");
-nav.append("a").attr("class", "nav-genre").attr("href", genreURL).append("span").html("Genres");
+nav.append("a").attr("href", genreURL).append("span").attr("class", "genre").html("Genres");
 
 if (genreParam) {
-    nav.append("a").attr("class", "nav-style").attr("href", styleURL).append("span").html(musicviz[genreParam].name);
+    nav.append("a").attr("href", styleURL).append("span").attr("class", "style").html(musicviz[genreParam].name);
 }
 
 if (genreParam && styleParam) {
-    nav.append("a").attr("class", "nav-decade").attr("href", decadeURL).append("span").html(musicviz[genreParam].styles[styleParam].name);
+    nav.append("a").attr("href", decadeURL).append("span").attr("class", "decade").html(musicviz[genreParam].styles[styleParam].name);
 }
 
 if (decadeParam) {
-    nav.append("a").attr("class", "nav-album").attr("href", window.location.href).append("span").html(decadeParam);
+    nav.append("a").attr("href", window.location.href).append("span").attr("class", "album").html(decadeParam);
 }
 
 if (decadeParam === null && styleParam === null && genreParam === null) {
@@ -178,7 +179,7 @@ if (decadeParam === null && styleParam === null && genreParam === null) {
 }
 
 if (level === "genre" || level === "style" || level === "decade") {
-    createBubbleChart(bubbleClick, data);
+    createBubbleChart(bubbleClick, data, level);
 } else if (level === "album") {
    createTableChart(data);
 }

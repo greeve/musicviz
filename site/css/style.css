@@ -6,6 +6,34 @@ html, body {
     width: 1024px;
     color: #333;
     font-family: 'Avenir';
+    background-color: black;
+}
+
+svg {
+    background-color: black;
+}
+
+.container {
+    /* background-color: green; */
+    height: 768px;
+    width: 1024px;
+}
+
+nav {
+    background-color: black;
+    height: 36px;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    vertical-align: middle;
+}
+
+nav a {
+    display: block; 
+    float: left;
 }
 
 nav > a, a:visited, a:active {
@@ -17,33 +45,7 @@ nav > a, a:visited, a:active {
     text-decoration: none;
 }
 
-svg {
-    background-color: white;
-}
-
-.container {
-    /* background-color: green; */
-    height: 768px;
-    width: 1024px;
-}
-
-nav {
-    background-color: purple;
-    height: 36px;
-    left: 0;
-    margin: 0;
-    padding: 0;
-    position: fixed;
-    top: 0;
-    vertical-align: middle;
-}
-
-nav a {
-    display: block; 
-    float: left;
-}
-
-nav > a > span{
+nav > a > span {
     display: block;
     padding: 0 1em;
     height: 36px;
@@ -51,44 +53,57 @@ nav > a > span{
     text-align: center;
     border: 0;
     text-decoration: none;
-    background-color: #333;
- }
+    background-color: #ccc;
+}
+
+nav > a > span.genre {
+    background-color: #9E379F;
+}
+
+nav > a > span.style {
+    background-color: #0e68ce;
+}
+
+nav > a > span.decade {
+    background-color: #028900;
+}
+
+nav > a > span.album {
+    background-color: #BF0000;
+}
 
 #viz {
     left: 0;
     position: absolute;
     top: 36px;
-}
-
-table {
-    border-collapse: collapse;
     width: 100%;
-    font-size: 150%;
-    margin-top: 1rem;
 }
 
-th {
-    color: #ccc;
-    font-variant: small-caps;
+text {
+    font-size: 24px;
+    text-anchor: middle;
+    pointer-events: none;
+    fill: #fff;
 }
 
-th, td {
-    padding: 0.5rem 1rem;
-    text-align: left;
+circle {
+    fill: #ccc;
 }
 
-td > a {
-    text-decoration: none;
-    color: #333;
+circle.genre {
+    fill: #9E379F;
 }
 
-td > a:active {
-    font-size: 100%;
-    margin: 0 !important;
+circle.style {
+    fill: #0e68ce;
 }
 
-td > a:hover {
-    color: #333;
+circle.decade {
+    fill: #028900;
+}
+
+.node:hover circle {
+    fill: orange;
 }
 
 .table { 
@@ -96,11 +111,17 @@ td > a:hover {
     width: 100%;
     font-size: 150%;
     margin-top: 1rem;
+    color: white;
 }
 
 .table-row {
     /* background: grey; */
     display: table-row !important;
+}
+
+a.table-row {
+    color: #BF0000;
+    font-weight: bold;
 }
 
 .table-cell {
