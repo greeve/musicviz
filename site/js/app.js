@@ -90,6 +90,8 @@ function reformatForTable(data, genre, style, decade) {
 function createTableChart(data) {
     console.log(data);
 
+    data.sort(firstBy("released").thenBy("artists"));
+
     var table = d3.select("#viz").append("div").attr("class", "table");
 
     for (var i=0; i < data.length; i++) {
@@ -97,8 +99,11 @@ function createTableChart(data) {
             var tbodyRow = table.append("a");
             tbodyRow.attr("class", "table-row fa").attr("data-audio", "audio/" + data[i].audio_filepath);
         } else {
-            var tbodyRow = table.append("span");
-            tbodyRow.attr("class", "table-row fa no-audio");
+            // var tbodyRow = table.append("span");
+            // tbodyRow.attr("class", "table-row fa no-audio");
+
+            var tbodyRow = table.append("a");
+            tbodyRow.attr("class", "table-row fa no-audio").attr("href", "https://search.lib.byu.edu/byu/record/lee." + data[i].catalog_id).attr("target", "_blank");
         }
         tbodyRow.append("div").attr("class", "table-cell").text(data[i].title);
         tbodyRow.append("div").attr("class", "table-cell").text(data[i].released);

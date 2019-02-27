@@ -140,6 +140,12 @@ audio {
     margin: 0 1em;
 }
 
+a.no-audio {
+    color: #fff;
+    text-decoration: underlined;
+    font-weight: normal;
+}
+
 [data-audio] { 
     cursor:pointer; 
 }
