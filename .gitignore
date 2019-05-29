@@ -11,6 +11,7 @@ __pycache__
 *.idx
 *.index
 secrets.ini
+*.mp3
 
 /static
 /env
