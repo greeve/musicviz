@@ -113,7 +113,11 @@ function createTableChart(data) {
             // tbodyRow.attr("class", "table-row fa no-audio");
 
             var tbodyRow = table.append("a");
-            tbodyRow.attr("class", "table-row fa no-audio").attr("href", "https://search.lib.byu.edu/byu/record/lee." + data[i].catalog_id).attr("target", "_blank");
+            if (constants.KIOSK === true) {
+                tbodyRow.attr("class", "table-row fa no-audio");
+            } else {
+                tbodyRow.attr("class", "table-row fa no-audio").attr("href", "https://search.lib.byu.edu/byu/record/lee." + data[i].catalog_id).attr("target", "_blank");
+            }
         }
         tbodyRow.append("div").attr("class", "table-cell").text(data[i].title);
         tbodyRow.append("div").attr("class", "table-cell").text(data[i].released);
