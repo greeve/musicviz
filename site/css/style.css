@@ -153,9 +153,11 @@ a.table-row:link, a.table-row:visited, a.table-row:active {
     text-decoration: none;
 }
 
+/*
 a.table-row:hover {
     text-decoration: underline;
 }
+*/
 
 .table-cell {
     display: table-cell;
