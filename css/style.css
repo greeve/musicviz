@@ -79,6 +79,31 @@ nav > a > span.album {
     width: 100%;
 }
 
+.player {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.player > audio, h2 {
+    margin-top: 100px;
+}
+
+.player > h1 {
+    font-size: 400%;
+}
+
+.player > h2 {
+    font-size: 250%;
+}
+
+.player > h3 {
+    font-size: 200%;
+}
+
+.player > h1, h2, h3 {
+    color: white;
+}
+
 text {
     font-size: 24px;
     text-anchor: middle;
@@ -109,7 +134,7 @@ circle.decade {
 .table { 
     display: table; 
     width: 100%;
-    font-size: 150%;
+    font-size: 175%;
     margin-top: 1rem;
     color: white;
 }
@@ -124,9 +149,17 @@ a.table-row {
     font-weight: bold;
 }
 
+a.table-row:link, a.table-row:visited, a.table-row:active {
+    text-decoration: none;
+}
+
+a.table-row:hover {
+    text-decoration: underline;
+}
+
 .table-cell {
     display: table-cell;
-    padding-top: 1em;
+    padding-top: 1.25em;
     padding-right: 1em;
     font-family: 'Avenir' !important; 
 }
@@ -142,7 +175,6 @@ audio {
 
 a.no-audio {
     color: #fff;
-    text-decoration: underlined;
     font-weight: normal;
 }
 
@@ -160,7 +192,9 @@ a.no-audio {
     margin: 0 1em;
 }
 
+/*
 [data-audio].on:before { 
     content:"\f28b"; 
     margin: 0 1em;
 }
+*/
