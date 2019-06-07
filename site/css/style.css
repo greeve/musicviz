@@ -5,12 +5,12 @@ html, body {
     padding: 0;
     width: 1024px;
     color: #333;
-    font-family: 'Avenir';
-    background-color: black;
+    font-family: 'Futura Bold';
+    background-color: #28292C;
 }
 
 svg {
-    background-color: black;
+    background-color: #28292C;
 }
 
 .container {
@@ -20,27 +20,32 @@ svg {
 }
 
 nav {
-    background-color: black;
-    height: 36px;
+    background-color: #28292C;
+    height: 48px;
     left: 0;
     margin: 0;
     padding: 0;
     position: fixed;
-    width: 100%;
+    text-transform: uppercase;
     top: 0;
     vertical-align: middle;
+    width: 100%;
 }
 
 nav a {
     display: block; 
     float: left;
+    margin-left: 10px;
+    border: 2px solid #fff;
+    border-top: none;
+    height: 48px;
 }
 
 nav > a, a:visited, a:active {
     color: #fff;
     display: block;
     font-size: 16px;
-    line-height: 36px;
+    line-height: 64px;
     padding-right: 0.25em;
     text-decoration: none;
 }
@@ -48,14 +53,15 @@ nav > a, a:visited, a:active {
 nav > a > span {
     display: block;
     padding: 0 1em;
-    height: 36px;
+    height: 48px;
     cursor: pointer;
     text-align: center;
     border: 0;
     text-decoration: none;
-    background-color: #ccc;
+    background-color: #28292C;
 }
 
+/*
 nav > a > span.genre {
     background-color: #9E379F;
 }
@@ -71,6 +77,8 @@ nav > a > span.decade {
 nav > a > span.album {
     background-color: #BF0000;
 }
+
+*/
 
 #viz {
     left: 0;
@@ -105,16 +113,18 @@ nav > a > span.album {
 }
 
 text {
+    fill: #FBEDE9;
     font-size: 24px;
-    text-anchor: middle;
     pointer-events: none;
-    fill: #fff;
+    text-anchor: middle;
+    text-transform: uppercase;
 }
 
 circle {
-    fill: #ccc;
+    fill: #B4A046;
 }
 
+/*
 circle.genre {
     fill: #9E379F;
 }
@@ -126,9 +136,14 @@ circle.style {
 circle.decade {
     fill: #028900;
 }
+*/
 
 .node:hover circle {
-    fill: orange;
+    fill: #FBEDE9;
+}
+
+.node:hover text {
+    fill: #28292C;
 }
 
 .table { 
