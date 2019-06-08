@@ -99,7 +99,7 @@ function reformatForSong(data, genre, style, decade, song) {
 function createTableChart(data) {
     console.log(data);
 
-    data.sort(firstBy("released").thenBy("artists"));
+    data.sort(firstBy("audio_filepath", -1).thenBy("released").thenBy("artists"));
 
     var table = d3.select("#viz").append("div").attr("class", "table");
 
