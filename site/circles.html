@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script>
+
+var width = 500,
+    height = 500,
+    minRadius = 10,
+    maxRadius = 100;
+
+var duration = 2000;
+
+d3.select("body").append("input")
+    .attr("type", "range")
+    .attr("min", 500)
+    .attr("max", 2000)
+    .attr("value", duration)
+    .on("change", function() { duration = this.value; });
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+// for (var i = 0; i < 9; i++) {
+//     svg.append("circle")
+//         .attr("cx", width/2)
+//         .attr("cy", height/2)
+//         .attr("r", minRadius * i)
+//         .style("stroke", "red")
+//         .style("fill", "none")
+//         .call(transition, minRadius * i, maxRadius * i);
+// }
+
+for (var i = 0; i < 9; i++) {
+    createCircle(i);
+}
+
+function transition(element, start, end) {
+    element.transition()
+        .duration(duration)
+        .attr("r", end)
+        .each("end", function() { 
+            // d3.select(this).call(transition, end, start); 
+            d3.select(this).remove()
+        });
+}
+
+function createCircle(index) {
+    svg.append("circle")
+        .attr("cx", width/2)
+        .attr("cy", height/2)
+        .attr("r", minRadius * index / 2)
+        .style("stroke", "#28292C")
+        .style("fill", "none")
+        .call(transition, minRadius * index / 2, maxRadius * index * 4);
+}
+
+    </script>
+
+</body>
+</html>
