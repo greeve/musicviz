@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <body>
-    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="js/d3/d3.min.js"></script>
     <script>
 
 var width = 500,
@@ -32,6 +32,14 @@ var svg = d3.select("body").append("svg")
 //         .call(transition, minRadius * i, maxRadius * i);
 // }
 
+svg.append("circle")
+    .attr("cx", width / 2)
+    .attr("cy", height / 2)
+    .attr("r", minRadius * 10 / 2)
+    .style("stroke", "#28292C")
+    .style("fill", "#B39F4D")
+    .call(transition, minRadius * 10 / 2, maxRadius * 10 * 4);
+
 for (var i = 0; i < 9; i++) {
     createCircle(i);
 }
@@ -48,11 +56,11 @@ function transition(element, start, end) {
 
 function createCircle(index) {
     svg.append("circle")
-        .attr("cx", width/2)
-        .attr("cy", height/2)
+        .attr("cx", width / 2)
+        .attr("cy", height / 2)
         .attr("r", minRadius * index / 2)
         .style("stroke", "#28292C")
-        .style("fill", "none")
+        .style("fill", 'none')
         .call(transition, minRadius * index / 2, maxRadius * index * 4);
 }
 
