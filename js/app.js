@@ -19,6 +19,7 @@ function createBubbleChart(onBubbleClick, data, level) {
         .data(pack.nodes(data).filter(function(d) { return !d.children; }))
       .enter().append("g")
         .attr("class", "node")
+        .attr("id", function(d) { return d.slug })
         .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
         .on("click", onBubbleClick);
 
@@ -32,23 +33,70 @@ function createBubbleChart(onBubbleClick, data, level) {
       .attr("dy", ".35em");
 }
 
+function createCircle(index, minRadius, maxRadius, d) {
+    var node = d3.select("#" + d.slug);
+    node.append("circle")
+        .attr("cx", node.x)
+        .attr("cy", node.y)
+        .attr("r", minRadius * index / 2)
+        .style("stroke", "#28292C")
+        .style("stroke-width", "3")
+        .style("fill", 'none')
+        .call(transition, minRadius * index / 2, maxRadius * index * 4);
+}
+
+function createCircleWithOffset(offset, minRadius, maxRadius, d) {
+    var node = d3.select("#" + d.slug);
+    node.append("circle")
+        .attr("cx", node.x)
+        .attr("cy", node.y)
+        .attr("r", offset)
+        .style("stroke", "#28292C")
+        .style("stroke-width", "2")
+        .style("fill", 'none')
+        .call(transition, minRadius, maxRadius);
+}
+
+function transition(element, start, end) {
+    element.transition()
+        .duration(700)
+        .attr("r", end)
+        .each("end", function() { 
+            d3.select(this).remove()
+        });
+}
+
 function bubbleClick(d) {
-    switch (d.level) {
-        case "genre":
-            // Create a link going to the style level
-            window.location.href = constants.HTML_ROOT + "?" + "genre=" + d.slug;
-            break;
-        case "style":
-            // Create a link going to the decade level
-            window.location.href = constants.HTML_ROOT + "?" + "genre=" + genreParam + "&" + "style=" + d.slug;
-            break;
-        case "decade":
-            // Create a link going to the album level
-            window.location.href = constants.HTML_ROOT + "?" + "genre=" + genreParam + "&" + "style=" + styleParam + "&" + "decade=" + d.name;
-            break;
-        default:
-            console.log("uncaught case")
+    var minRadius = 10;
+    var maxRadius = d.r;
+    var offset = 10;
+
+    d3.select("#" + d.slug + " circle").style("fill", "#FBEDE9");
+    d3.select("#" + d.slug + " text").style("fill", "#28292C");
+
+    while (offset < d.r) {
+        createCircleWithOffset(offset, minRadius, maxRadius, d);
+        offset += 10;
     }
+
+    setTimeout(function () {
+        switch (d.level) {
+            case "genre":
+                // Create a link going to the style level
+                window.location.href = constants.HTML_ROOT + "?" + "genre=" + d.slug;
+                break;
+            case "style":
+                // Create a link going to the decade level
+                window.location.href = constants.HTML_ROOT + "?" + "genre=" + genreParam + "&" + "style=" + d.slug;
+                break;
+            case "decade":
+                // Create a link going to the album level
+                window.location.href = constants.HTML_ROOT + "?" + "genre=" + genreParam + "&" + "style=" + styleParam + "&" + "decade=" + d.name;
+                break;
+            default:
+                console.log("uncaught case")
+        }
+    }, 700);
 }
 
 function reformatForPack(data, genre, style, decade) {
@@ -59,7 +107,29 @@ function reformatForPack(data, genre, style, decade) {
             for (var key in decadeData) {
                 if (decadeData.hasOwnProperty(key)) {
                     value = decadeData[key]
-                    packData.push({name: value.name, value: value.count, slug: key, level: "decade"});
+                    var slug = "";
+                    if (key.startsWith("1")) {
+                        slug = "ten";
+                    } else if (key.startsWith("2")) {
+                        slug = "twenty";
+                    } else if (key.startsWith("3")) {
+                        slug = "thirty";
+                    } else if (key.startsWith("4")) {
+                        slug = "fourty";
+                    } else if (key.startsWith("5")) {
+                        slug = "fifty";
+                    } else if (key.startsWith("6")) {
+                        slug = "sixty";
+                    } else if (key.startsWith("7")) {
+                        slug = "seventy";
+                    } else if (key.startsWith("8")) {
+                        slug = "eighty";
+                    } else if (key.startsWith("9")) {
+                        slug = "ninty";
+                    } else if (key.startsWith("0")) {
+                        slug = "zero";
+                    }
+                    packData.push({name: value.name, value: value.count, slug: slug, level: "decade"});
                 }
             }
         } else {
